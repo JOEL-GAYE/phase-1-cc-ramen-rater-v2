@@ -6,7 +6,7 @@ const handleClick = (ramen) => {
   const rating = document.getElementById('rating-display');
   const comment = document.getElementById('comment-display');
 
-  // Check if all elements exist in the DOM
+
   if (img && name && restaurant && rating && comment) {
     // Update DOM with correct ramen details
     img.src = ramen.image;
@@ -19,13 +19,12 @@ const handleClick = (ramen) => {
   }
 };
 
-// Add event listener for the new ramen form submission
+
 const addSubmitListener = () => {
-  const form = document.getElementById('new-ramen');  // Ensure this matches your HTML form ID
+  const form = document.getElementById('new-ramen');  
   form.addEventListener('submit', event => {
     event.preventDefault();
 
-    // Collect data from the form
     const newRamen = {
       name: event.target.name.value,
       restaurant: event.target.restaurant.value,
@@ -57,18 +56,18 @@ function addRamenToMenu(ramen) {
 
 // Fetch and display ramen data
 const displayRamens = () => {
-  fetch('http://localhost:3000/ramens')  // Ensure your server is running and fetching data from the correct endpoint
+  fetch('http://localhost:3000/ramens')  
     .then(response => response.json())
     .then(ramens => {
       const ramenMenu = document.getElementById('ramen-menu');
-      ramenMenu.innerHTML = '';  // Clear the menu in case of reload
+      ramenMenu.innerHTML = '';  
       ramens.forEach(ramen => {
-        addRamenToMenu(ramen);  // Reuse the addRamenToMenu function to populate the menu
+        addRamenToMenu(ramen);  u
       });
 
       // Display the first ramen by default
       if (ramens.length > 0) {
-        handleClick(ramens[0]);  // Display details of the first ramen
+        handleClick(ramens[0]);  
       }
     });
 };
@@ -82,7 +81,7 @@ function addEditListener() {
     const updatedRating = event.target['edit-rating'].value;
     const updatedComment = event.target['edit-comment'].value;
 
-    // Update the displayed values
+    
     document.getElementById('rating-display').innerText = updatedRating;
     document.getElementById('comment-display').innerText = updatedComment;
   });
@@ -113,18 +112,18 @@ function createRamen(ramenData) {
     .then(response => response.json())
     .then(data => {
       console.log('New Ramen Added:', data);
-      addRamenToMenu(data);  // Add the newly created ramen to the menu
+      addRamenToMenu(data);  
     });
 }
 
-// Delete ramen from the server
+// Delete 
 function deleteRamen(ramenId) {
   fetch(`http://localhost:3000/ramens/${ramenId}`, {
     method: 'DELETE',
   }).then(() => console.log('Ramen deleted'));
 }
 
-// Main function
+
 const main = () => {
   displayRamens();  
   addSubmitListener();  
