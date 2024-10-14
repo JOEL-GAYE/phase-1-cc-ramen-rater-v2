@@ -5,26 +5,30 @@ const handleClick = (ramen) => {
   const restaurant = document.querySelector('#ramen-detail h3');
   const rating = document.getElementById('rating-display');
   const comment = document.getElementById('comment-display');
-
+  const editForm = document.getElementById('edit-ramen-form'); 
 
   if (img && name && restaurant && rating && comment) {
-    // Update DOM with correct ramen details
     img.src = ramen.image;
     name.innerText = ramen.name;
     restaurant.innerText = ramen.restaurant;
     rating.innerText = ramen.rating;
     comment.innerText = ramen.comment;
+    
+    // Set ramen ID in the edit form to track it
+    editForm.dataset.ramenId = ramen.id;
   } else {
     console.error('Error: One or more elements are missing from the DOM.');
   }
 };
 
 
+// Add event listener for the new ramen form submission
 const addSubmitListener = () => {
   const form = document.getElementById('new-ramen');  
   form.addEventListener('submit', event => {
     event.preventDefault();
 
+    // Collect data from the form
     const newRamen = {
       name: event.target.name.value,
       restaurant: event.target.restaurant.value,
@@ -62,7 +66,7 @@ const displayRamens = () => {
       const ramenMenu = document.getElementById('ramen-menu');
       ramenMenu.innerHTML = '';  
       ramens.forEach(ramen => {
-        addRamenToMenu(ramen);  u
+        addRamenToMenu(ramen);  
       });
 
       // Display the first ramen by default
@@ -72,20 +76,28 @@ const displayRamens = () => {
     });
 };
 
+
 // Event listener for editing a ramen
 function addEditListener() {
-  const form = document.getElementById('new-ramen'); 
+  const form = document.getElementById('edit-ramen-form'); 
   form.addEventListener('submit', event => {
     event.preventDefault();
-
-    const updatedRating = event.target['edit-rating'].value;
-    const updatedComment = event.target['edit-comment'].value;
-
     
-    document.getElementById('rating-display').innerText = updatedRating;
-    document.getElementById('comment-display').innerText = updatedComment;
+    const ramenId = form.dataset.ramenId; 
+    const updatedData = {
+      rating: event.target['edit-rating'].value,
+      comment: event.target['edit-comment'].value,
+    };
+
+    // Update the displayed values
+    document.getElementById('rating-display').innerText = updatedData.rating;
+    document.getElementById('comment-display').innerText = updatedData.comment;
+
+    // PATCH the data to the server
+    updateRamen(ramenId, updatedData);
   });
 }
+
 
 // Update ramen rating and comment on the server using PATCH
 function updateRamen(ramenId, updatedData) {
@@ -116,14 +128,14 @@ function createRamen(ramenData) {
     });
 }
 
-// Delete 
+// Delete ramen from the server
 function deleteRamen(ramenId) {
   fetch(`http://localhost:3000/ramens/${ramenId}`, {
     method: 'DELETE',
   }).then(() => console.log('Ramen deleted'));
 }
 
-
+// Main function
 const main = () => {
   displayRamens();  
   addSubmitListener();  
