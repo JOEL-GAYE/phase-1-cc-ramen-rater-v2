@@ -48,7 +48,7 @@ const displayFirstRamen = (ramens) => {
 };
 
 const displayRamens = () => {
-  fetch('http://localhost:3000/ramens')
+  fetch('https://my-json-server.typicode.com/JOEL-GAYE/phase-1-cc-ramen-rater-v2/ramens')
     .then((response) => response.json())
     .then((ramens) => {
       const ramenMenu = document.getElementById('ramen-menu');
@@ -91,16 +91,16 @@ const addDeleteListener = (ramen) => {
   });
   document.querySelector('#ramen-detail').appendChild(deleteBtn);  
 };
-fetch('http://localhost:3000/ramens', {
+fetch('https://my-json-server.typicode.com/JOEL-GAYE/phase-1-cc-ramen-rater-v2/ramens', {
   method: 'POST',
   headers: { 'Content-Type': 'application/json' },
   body: JSON.stringify(newRamen),
 });
-fetch(`http://localhost:3000/ramens/${ramen.id}`, {
+fetch(`https://my-json-server.typicode.com/JOEL-GAYE/phase-1-cc-ramen-rater-v2/ramens/${ramen.id}`, {
   method: 'PATCH',
   headers: { 'Content-Type': 'application/json' },
   body: JSON.stringify({ rating: newRating, comment: newComment }),
 });
-fetch(`http://localhost:3000/ramens/${ramen.id}`, {
+fetch(`https://my-json-server.typicode.com/JOEL-GAYE/phase-1-cc-ramen-rater-v2/ramens/${ramen.id}`, {
   method: 'DELETE',
 });
