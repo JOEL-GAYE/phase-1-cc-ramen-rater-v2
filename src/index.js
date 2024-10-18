@@ -29,21 +29,21 @@ const addSubmitListener = () => {
     const img = document.createElement('img');
     img.src = newRamen.image;
     img.alt = newRamen.name;
-    img.addEventListener('click', () => handleClick(newRamen));  // Add click listener
+    img.addEventListener('click', () => handleClick(newRamen));  
     ramenMenu.appendChild(img);
 
-    form.reset();  // Clear form
+    form.reset();  
   });
 };
 const main = () => {
-  displayRamens();   // Display all ramen on page load
-  addSubmitListener();  // Listen for new ramen form submission
+  displayRamens();   
+  addSubmitListener();  
 };
 
-document.addEventListener('DOMContentLoaded', main);  // Run main() once the DOM is ready
+document.addEventListener('DOMContentLoaded', main);  
 const displayFirstRamen = (ramens) => {
   if (ramens.length > 0) {
-    handleClick(ramens[0]);  // Display the first ramen's details
+    handleClick(ramens[0]);  
   }
 };
 
@@ -59,7 +59,7 @@ const displayRamens = () => {
         img.addEventListener('click', () => handleClick(ramen));  // Attach click event listener
         ramenMenu.appendChild(img);
       });
-      displayFirstRamen(ramens);  // Display details for the first ramen
+      displayFirstRamen(ramens);  
     });
 };
 const addEditListener = () => {
@@ -81,7 +81,7 @@ const addDeleteListener = (ramen) => {
   deleteBtn.textContent = 'Delete';
   deleteBtn.addEventListener('click', () => {
     const ramenMenu = document.getElementById('ramen-menu');
-    ramenMenu.querySelector(`img[alt="${ramen.name}"]`).remove();  // Remove from menu
+    ramenMenu.querySelector(`img[alt="${ramen.name}"]`).remove();  
     // Optionally, clear ramen details
     document.querySelector('#ramen-detail img').src = '';
     document.querySelector('#ramen-detail h2').textContent = '';
@@ -89,7 +89,7 @@ const addDeleteListener = (ramen) => {
     document.getElementById('rating-display').textContent = '';
     document.getElementById('comment-display').textContent = '';
   });
-  document.querySelector('#ramen-detail').appendChild(deleteBtn);  // Add delete button to the details section
+  document.querySelector('#ramen-detail').appendChild(deleteBtn);  
 };
 fetch('http://localhost:3000/ramens', {
   method: 'POST',
